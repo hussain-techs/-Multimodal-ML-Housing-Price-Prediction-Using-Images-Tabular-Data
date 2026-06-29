@@ -1,0 +1,22 @@
+1. Check what python3 actually is
+batpython3 -c "import sys; print(sys.executable)"
+
+2. Install packages using that exact interpreter
+Instead of running pip install ... on its own (which might hit a different Python), force it through the same interpreter:
+batpython3 -m pip install torch torchvision scikit-learn pandas numpy pillow matplotlib
+The python3 -m pip form guarantees the packages land in the same place python3 looks for them.
+
+3. If that still doesn't work — try python instead of python3
+On Windows, the official Python installer usually only registers the python command, not python3. If you installed packages earlier with plain pip install ..., they probably went to whatever python points to. Try:
+batpython -m pip install torch torchvision scikit-learn pandas numpy pillow matplotlib
+python 04_baseline_comparisons.py
+
+4. Sanity check before rerunning the real script
+batpython -c "import numpy, torch, pandas, sklearn, PIL, matplotlib; print('all good')"
+If that prints all good, switch to using python (not python3) for the rest of the commands:
+
+cd F:\housing_multimodal
+python src\01_generate_tabular_data.py
+python src\02_generate_images.py
+python src\03_multimodal_pipeline.py
+python src\04_baseline_comparisons.py
